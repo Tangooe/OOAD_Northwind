@@ -1,0 +1,115 @@
+﻿@model OOAD_Northwind.Models.Parties
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Parties</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeNavigation.TypeName)
+        </dd>
+    </dl>
+</div>
+@if (Model.AccountabilitiesPartyBNavigation.Any())
+{
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Answers To</th>
+                <th>
+                    Relation Type
+                </th>
+                <th>
+                    StartDate
+                </th>
+                <th>
+                    EndDate
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.AccountabilitiesPartyBNavigation)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Parties" asp-action="Details" asp-route-id="@item.PartyA">@item.PartyANavigation.Name</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeNavigation.TypeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDateTime)
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+@if (Model.AccountabilitiesPartyANavigation.Any())
+{
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Plebs</th>
+                <th>
+                    Relation Type
+                </th>
+                <th>
+                    StartDate
+                </th>
+                <th>
+                    EndDate
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.AccountabilitiesPartyANavigation)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Parties" asp-action="Details" asp-route-id="@item.PartyB">@item.PartyBNavigation.Name</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeNavigation.TypeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDateTime)
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+<div>
+    <a asp-controller="Accountabilities" asp-action="Index">Back to List</a>
+</div>
